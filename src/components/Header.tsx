@@ -10,7 +10,7 @@ const Header = () => {
         <h1 className="text-xl font-bold text-gray-800">Audio<span className="text-audiobook-primary">Scribe</span></h1>
       </div>
       <div className="text-sm text-gray-500">
-        Transforme PDFs em audiobooks
+        Transforme PDFs em audiobooks página por página
       </div>
     </header>
   );

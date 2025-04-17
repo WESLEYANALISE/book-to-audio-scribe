@@ -7,7 +7,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-export const extractTextFromPdf = async (file: File): Promise<string> => {
+export interface PageContent {
+  pageNum: number;
+  text: string;
+}
+
+export const extractTextFromPdf = async (file: File): Promise<PageContent[]> => {
   try {
     // Carregar o PDF como um ArrayBuffer
     const arrayBuffer = await file.arrayBuffer();
@@ -18,9 +23,9 @@ export const extractTextFromPdf = async (file: File): Promise<string> => {
     
     // Número de páginas no PDF
     const numPages = pdf.numPages;
-    let text = '';
+    const pages: PageContent[] = [];
     
-    // Extrair texto de cada página
+    // Extrair texto de cada página, mantendo-os separados
     for (let i = 1; i <= numPages; i++) {
       const page = await pdf.getPage(i);
       const content = await page.getTextContent();
@@ -28,10 +33,13 @@ export const extractTextFromPdf = async (file: File): Promise<string> => {
         .map((item: any) => item.str)
         .join(' ');
         
-      text += pageText + '\n\n';
+      pages.push({
+        pageNum: i,
+        text: pageText
+      });
     }
     
-    return text;
+    return pages;
   } catch (error) {
     console.error('Erro ao extrair texto do PDF:', error);
     throw new Error('Falha ao processar o arquivo PDF');
