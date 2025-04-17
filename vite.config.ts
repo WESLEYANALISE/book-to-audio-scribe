@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   //  ─────────── Aqui ───────────
   // Em produção, serve a partir de https://SEU_USER.github.io/SEU_REPO/
-  base: mode === "production" ? "/SEU_REPO/" : "/",
+  base: mode === "production" ? "/https://github.com/WESLEYANALISE/book-to-audio-scribe.git/" : "/",
   // ─────────────────────────────
 
   server: {
